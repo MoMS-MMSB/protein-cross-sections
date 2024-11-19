@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+src/modules.py
+src/protein_geometry.egg-info/PKG-INFO
+src/protein_geometry.egg-info/SOURCES.txt
+src/protein_geometry.egg-info/dependency_links.txt
+src/protein_geometry.egg-info/requires.txt
+src/protein_geometry.egg-info/top_level.txt

@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--structure", help = "<.gro>  structure file", required = True)
 parser.add_argument("-t", "--trajectory", help = "<.xtc>/<.trr> trajectory file")
 parser.add_argument("-n", "--n_slices", type=int, help = "number of slices in z", default=50)
-
+parser.add_argument("-o", "--output", default="out")
 args = parser.parse_args()
 
 try:
@@ -28,10 +28,10 @@ if args.trajectory:
                  c = "#d60036")
     plt.xlim(0, np.max(avg_slice_distances) + 5)
     results = np.stack([np.arange(args.n_slices), avg_slice_distances, slice_std]).T
-    np.savetxt('test.csv', results, delimiter=',')
+    np.savetxt(f"{args.output}.csv", results, delimiter=',')
 else:
     protein = u.select_atoms("protein").positions
     slice_distances = modules.distances_by_slice(protein, args.n_slices)
     plt.plot(slice_distances)
 
-plt.savefig("test.png")
+plt.savefig(f"{args.output}.png")

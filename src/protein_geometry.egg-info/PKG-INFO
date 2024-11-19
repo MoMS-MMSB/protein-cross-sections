@@ -1,6 +1,14 @@
-### small tools for calculating protein geometries
+Metadata-Version: 2.1
+Name: protein-geometry
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib>=3.9.2
+Requires-Dist: mdanalysis>=2.7.0
+Requires-Dist: numpy>=1.26.4
 
-![](images/hull.jpg)
+### small tools for calculating protein geometries
 
 `calculate-slice-areas.py` creates `n` slices in z, then calculates a [convex hull](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html) on each of them, returning the area per slice, per frame.
 
@@ -17,4 +25,4 @@ Usage:
 ```
 python calculate-slice-{areas/distances}.py -s ${structure.gro/.tpr} -t ${trajectory.xtc/.trr} -n 100
 ```
-where `-n` is the number of slices (default 50), `-o` specifies the names of the resulting `.png` and `.csv` files.
+where `-n` is the number of slices (default 50)
