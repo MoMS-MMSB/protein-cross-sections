@@ -4,6 +4,13 @@
 
 `calculate-slice-distances.py` creates `n` slices in z, then calculates the average distance of each atom/bead/particle of the protein in that slice from the protein center of mass (in that same slice).
 
+Install:
+```
+git clone git@github.com:MoMS-MMSB/protein-geometry.git
+cd protein-geometry
+source .venv/bin/activate
+```
+
 Usage:
 ```
 python calculate-slice-{areas/distances}.py -s ${structure.gro/.tpr} -t ${trajectory.xtc/.trr} -n 100
