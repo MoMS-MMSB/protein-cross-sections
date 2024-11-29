@@ -10,12 +10,14 @@ def slice_coords(coords, n_slices):
 
     z_order = np.argsort(coords[:,2])
     sorted_coords = coords[z_order]
-    # Split into n_slices groups of approximately equal size
+    
+    #print(int(np.max(coords[:, 2]) - np.min(coords[:, 2])))
+
     splits = np.array_split(sorted_coords, n_slices)
     
     # Create dictionary of slices
     slices = {i: split for i, split in enumerate(splits)}
-    
+            
     return slices
 
 def results_by_slice(coords, n_slices):
@@ -62,20 +64,31 @@ def areas_by_slice(coords, n_slices):
     slices = slice_coords(coords, n_slices)
     areas = []
     for i in np.arange(len(slices)):
-        hull = ConvexHull(slices[i][:, :2])
-        areas.append(hull.area)
+        try:
+            hull = ConvexHull(slices[i][:, :2])
+            areas.append(hull.area)
+        except:
+            areas.append(0)
     return areas 
  
 def areas_per_frame(u, n_slices):
     slice_areas = []
+    protein_lengths = []
     for ts in tqdm(u.trajectory):
         protein = u.select_atoms("protein").positions
         slice_areas.append(areas_by_slice(protein, n_slices))
-
+        protein_lengths.append(np.max(protein[:, 2]) - np.min(protein[:, 2]))
     avg_slice_areas = np.mean(slice_areas, axis=0)
     slice_std = np.std(slice_areas, axis=0)
+    avg_protein_length = np.mean(protein_lengths)
+    return avg_slice_areas, slice_std, avg_protein_length
 
-    return avg_slice_areas, slice_std
+def length_per_frame(u):
+    lengths = []
+    for ts in tqdm(u.trajectory):
+        protein = u.select_atoms("protein").positions
+        lengths.append(np.max(protein[:, 2]) - np.min(protein[:, 2]))
+    return np.average(lengths), np.std(lengths)
 
 def plot_slice_hulls(coords, n_slices):
     slices = slice_coords(coords, n_slices)

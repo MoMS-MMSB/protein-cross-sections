@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--structure", help = "<.gro>  structure file", required = True)
 parser.add_argument("-t", "--trajectory", help = "<.xtc>/<.trr> trajectory file")
 parser.add_argument("-n", "--n_slices", type=int, help = "number of slices in z", default=50)
-parser.add_argument("-o", "--output", default="out")
+parser.add_argument("-o", "--output", default="distance")
 args = parser.parse_args()
 
 try:
@@ -33,5 +33,8 @@ else:
     protein = u.select_atoms("protein").positions
     slice_distances = modules.distances_by_slice(protein, args.n_slices)
     plt.plot(slice_distances)
+plt.xlabel("Distance Å")
+plt.ylabel("Slice")
+plt.title("Average distance from slice center of geometry")
 
 plt.savefig(f"{args.output}.png")
