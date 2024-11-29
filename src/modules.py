@@ -142,6 +142,16 @@ def voxelize_protein(protein_coords, box_dims, voxel_size=3):
 
     occupied_area = np.sum(voxel_grid, axis=(0,1)) * (voxel_size ** 2)
     return occupied_area, voxel_grid
+ 
+def voxels_per_frame(u, voxel_size):
+    voxel_areas = []
+    for ts in tqdm(u.trajectory):
+        protein = u.select_atoms("protein").positions
+        voxel_areas.append(voxelize_protein(protein, u.dimensions, voxel_size)[0])
+    avg_voxel_areas = np.mean(voxel_areas, axis=0)
+    voxel_std = np.std(voxel_areas, axis=0)
+    return avg_voxel_areas, voxel_std
+
 
 def plot_voxels(voxel_grid):
     fig = plt.figure(figsize=(10,10))
