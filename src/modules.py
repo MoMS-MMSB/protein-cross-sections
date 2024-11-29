@@ -78,8 +78,8 @@ def areas_per_frame(u, n_slices):
         protein = u.select_atoms("protein").positions
         slice_areas.append(areas_by_slice(protein, n_slices))
         protein_lengths.append(np.max(protein[:, 2]) - np.min(protein[:, 2]))
-    avg_slice_areas = np.mean(slice_areas, axis=0)
-    slice_std = np.std(slice_areas, axis=0)
+    avg_slice_areas = np.mean(slice_areas, axis=0) * 10
+    slice_std = np.std(slice_areas, axis=0) * 10
     avg_protein_length = np.mean(protein_lengths)
     return avg_slice_areas, slice_std, avg_protein_length
 
