@@ -30,8 +30,8 @@ if args.trajectory:
                  c = "#d60036")
     plt.xlim(-10, np.max(avg_voxel_areas) + 500)
     plt.title(f"{len(avg_voxel_areas)} voxels in z- of {args.voxel_size} angstrom")
-    #results = np.stack([z_range, avg_slice_areas, slice_std]).T
-    #np.savetxt(f'{args.output}.csv', results, delimiter=',')
+    results = np.stack([np.arange(0, len(avg_voxel_areas)), avg_voxel_areas, voxel_std]).T
+    np.savetxt(f'{args.output}.csv', results, delimiter=',')
 else:
     protein = u.select_atoms("protein").positions
     voxel_areas, voxel_grid = modules.voxelize_protein(protein, u.dimensions, args.voxel_size)
