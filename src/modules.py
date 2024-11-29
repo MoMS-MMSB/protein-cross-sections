@@ -142,3 +142,16 @@ def voxelize_protein(protein_coords, box_dims, voxel_size=3):
 
     occupied_area = np.sum(voxel_grid, axis=(0,1)) * (voxel_size ** 2)
     return occupied_area, voxel_grid
+
+def plot_voxels(voxel_grid):
+    fig = plt.figure(figsize=(10,10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    x, y, z = np.where(voxel_grid == 1)
+
+    ax.voxels(voxel_grid, facecolors='blue', alpha=0.1, edgecolor='black')
+    ax.set_xlabel('X (voxels)')
+    ax.set_ylabel('Y (voxels)')
+    ax.set_zlabel('Z (voxels)')
+    ax.set_title('3D Voxel Representation of Protein')
+    plt.savefig("voxels.png", bbox_inches="tight")

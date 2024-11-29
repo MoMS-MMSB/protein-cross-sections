@@ -11,7 +11,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--structure", help = "<.gro>  structure file", required = True)
 parser.add_argument("-t", "--trajectory", help = "<.xtc>/<.trr> trajectory file")
 parser.add_argument("-v", "--voxel_size", type=float, help = "voxel size in angstrom", default=3)
-parser.add_argument("-o", "--output", default="area")
+parser.add_argument("-o", "--output", default="voxel_area")
+parser.add_argument("--plot_voxel", type=bool, help="return a nice 3d plot of the occupied voxels", default=False)
 args = parser.parse_args()
 
 try:
@@ -34,15 +35,13 @@ if args.trajectory:
     np.savetxt(f'{args.output}.csv', results, delimiter=',')
 else:
     protein = u.select_atoms("protein").positions
-    voxel_areas, _ = modules.voxelize_protein(protein, u.dimensions, args.voxel_size)
-    print(type(voxel_areas))
+    voxel_areas, voxel_grid = modules.voxelize_protein(protein, u.dimensions, args.voxel_size)
     plt.plot(voxel_areas, np.arange(0, len(voxel_areas)) * args.voxel_size)
 
 plt.xlabel("Area (Å²)")
 plt.ylabel("Z coords (Å)")
 plt.title(f"{len(voxel_areas)} voxels in z- of {args.voxel_size} angstrom")
-plt.show()
-#plt.savefig(f"{args.output}.png")
-# 
-# if args.plot_hull:
-#     modules.plot_slice_hulls(protein, args.n_slices)
+plt.savefig(f"{args.output}.png")
+
+if args.plot_voxel:
+    modules.plot_voxels(voxel_grid)
