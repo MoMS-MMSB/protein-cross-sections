@@ -129,4 +129,16 @@ def plot_slice_hulls(coords, n_slices):
     ax3.set_ylabel('Y')
 
     plt.savefig("hull.png", bbox_inches="tight")
-    
+
+def voxelize_protein(protein_coords, box_dims, voxel_size=3):
+    box_dims = box_dims[:3]
+    n_voxels = np.ceil(np.array(box_dims[:3]) / voxel_size).astype(int)
+
+    voxel_grid = np.zeros(n_voxels)
+
+    voxel_indices = (protein_coords / voxel_size).astype(int)
+
+    voxel_grid[voxel_indices[:, 0], voxel_indices[:, 1], voxel_indices[:, 2]] = 1
+
+    occupied_area = np.sum(voxel_grid, axis=(0,1)) * (voxel_size ** 2)
+    return occupied_area, voxel_grid
