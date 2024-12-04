@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/890810891.svg)](https://doi.org/10.5281/zenodo.14278352)
 ### small tools for calculating protein geometries
 
 ![](images/hull.jpg)
