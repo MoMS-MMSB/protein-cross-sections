@@ -10,7 +10,7 @@
 `calculate_voxel_area.py` splits the box into voxels of area `-v` (in angstrom), and returns the total area of voxels which contain any protein atom/bead. This method can originally be found in the ACS Central Science Paper "Lipid–Protein Interactions Are Unique Fingerprints for Membrane Proteins" by Corradi et al., 2018 `doi: 10.1021/acscentsci.8b00143`. Please cite the original work as well!
 ### Install:
 ```
-git clone git@github.com:MoMS-MMSB/protein-geometry.git
+git clone git@github.com:MoMS-MMSB/protein-cross-sections.git
 cd protein-geometry
 uv venv
 source .venv/bin/activate
