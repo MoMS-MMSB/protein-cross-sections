@@ -7,6 +7,7 @@
 
 `calculate-slice-distances.py` creates `n` slices in z, then calculates the average distance of each atom/bead/particle of the protein in that slice from the protein center of mass (in that same slice).
 
+`calculate_voxel_area.py` splits the box into voxels of area `-v` (in angstrom), and returns the total area of voxels which contain any protein atom/bead. This method can originally be found in the ACS Central Science Paper "Lipid–Protein Interactions Are Unique Fingerprints for Membrane Proteins" by Corradi et al., 2018 `doi: 10.1021/acscentsci.8b00143`. Please cite the original work as well!
 ### Install:
 ```
 git clone git@github.com:MoMS-MMSB/protein-geometry.git
@@ -24,7 +25,6 @@ python calculate-slice-{areas/distances}.py -s ${structure.gro/.tpr} -t ${trajec
 ```
 where `-n` is the number of slices (default 50), `-o` specifies the names of the resulting `.png` and `.csv` files.
 #### Calculation by voxels
-This method can originally be found in the ACS Central Science Paper "Lipid–Protein Interactions Are Unique Fingerprints for Membrane Proteins" by Corradi et al., 2018 `doi: 10.1021/acscentsci.8b00143`. Please cite the original work as well!
 ```
 python calculate-voxel-{areas/distances}.py -s ${structure.gro/.tpr} -t ${trajectory.xtc/.trr} -v 3
 ```
