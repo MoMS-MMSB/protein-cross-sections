@@ -24,6 +24,7 @@ python calculate-slice-{areas/distances}.py -s ${structure.gro/.tpr} -t ${trajec
 ```
 where `-n` is the number of slices (default 50), `-o` specifies the names of the resulting `.png` and `.csv` files.
 #### Calculation by voxels
+This method can originally be found in the ACS Central Science Paper "Lipid–Protein Interactions Are Unique Fingerprints for Membrane Proteins" by Corradi et al., 2018 `doi: 10.1021/acscentsci.8b00143`. Please cite the original work as well!
 ```
 python calculate-voxel-{areas/distances}.py -s ${structure.gro/.tpr} -t ${trajectory.xtc/.trr} -v 3
 ```
